@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Scrolly Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .scroller {
+      position: relative;
+    }
+
+    .background {
+      position: sticky;
+      top: 0;
+      width: 60%;
+      height: 100vh;
+      background-color: #b45c46;
+      transition: background-color 0.3s ease;
+      z-index: -1; /* -1 needed for safari sticky issue*/
+    }
+
+    .foreground {
+      position: relative;
+      z-index: 1;
+      margin-top: -100vh;
+    }
+
+    .step {
+      height: 100vh;
+      margin-left: 60%;
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 1rem 1.5rem;
+      font-size: 1.25rem;
+      border-radius: 4px;
+      width: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .background {
+        width: 100%;
+      }
+      .step {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroller">
+    <div class="background">
+      <!-- Background content (e.g., map, image, etc.) goes here -->
+      <!-- Empty in this example as we are just adding background color -->
+    </div>
+   
+    <div class="foreground"> 
+       <!-- Foreground content, usually text or other elements -->
+      <div class="step"><div class="card">There’s a basilica that looks just like Powell Library and Royce Hall in Milan, Italy.</div></div>
+      <div class="step"><div class="card">Meet Basilica of Sant'Ambrogio, one of the inspirations for the architecture for Powell Library, UCLA’s main undergraduate library.</div></div>
+      <div class="step"><div class="card">Another inspiration is Basilica del Santo Sepolcro in Bologna, Italy,</div></div>
+      <div class="step"><div class="card">which inspired Powell Library’s dome.</div></div>
+      <div class="step"><div class="card">Powell Library’s architecture is full of historical references and intentional symbolism.</div></div>
+      <div class="step"><div class="card">A Look Into Powell Library’s Symbolism and Architecture <br> Noah Hrung and Liam McGlynn </div></div>
+      <div class="step"><div class="card">Powell’s main entrance has its historical counterpart, too.</div></div>
+      <div class="step"><div class="card">The main entrance is a pediment, a temple-like entrance.</div></div>
+      <div class="step"><div class="card">It is modeled after the entrance of the Basilica of San Zeno in Verona, Italy.</div></div>
+      <div class="step"><div class="card">San Zeno’s entrance hosts a central Christ figure.</div></div>
+      <div class="step"><div class="card">Powell’s entrance replaces Christ with an owl.</div></div>
+      <div class="step"><div class="card">The owl is associated with Athena, Greek goddess of wisdom.</div></div>
+      <div class="step"><div class="card">Above is a sun, with light representing knowledge. This idea of light is thematic of UCLA’s official motto: “Let there be light.”</div></div>
+      <div class="step"><div class="card">Two worshippers kneel in respect to the owl.</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 0</div></div>
+      <div class="step"><div class="card">Step 1</div></div>
+      <div class="step"><div class="card">Step 2</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">Step 3</div></div>
+    </div>
+  </div>
+  <!-- Add scrollama script, could also be included via local file -->
+  <script src="https://unpkg.com/scrollama"></script>
+  <script>
+
+
+    const colors = ["#b45c46", "#5f9ea0", "#7fa67a", "#b47846"];
+    const background = document.querySelector(".background");
+
+    // setup scrollama instance using the steps class above
+    const scroller = scrollama();
+    scroller
+      .setup({
+        step: ".step",
+        threshold: 0.5,
+      })
+      .onStepEnter((response) => {
+        // change background color on step enter using the array above
+        background.style.backgroundColor = colors[response.index];
+      });
+  </script>
+</body>
+</html>
