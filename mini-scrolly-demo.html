@@ -11,12 +11,23 @@
       position: relative;
     }
 
+    body {
+      overflow-x: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      align-content: center;
+      border-width: 0px;
+    }
+
     .background {
       position: sticky;
       top: 0;
       width: 60%;
       height: 100vh;
-      background-color: #b45c46;
+      background-color: #252525;
       transition: background-color 0.3s ease;
       z-index: -1; /* -1 needed for safari sticky issue*/
     }
@@ -62,7 +73,7 @@
 <body>
   <div class="scroller">
     <div class="background">
-      <iframe src="page-1/page-1.html"></iframe>
+      <iframe src="gfx/page-1/page-1.html"></iframe>
     </div>
    
     <div class="foreground"> 
