@@ -73,7 +73,7 @@
 <body>
   <div class="scroller">
     <div class="background">
-      <iframe src="gfx/page-1/page-1.html"></iframe>
+      <iframe id="frame" src="gfx/page-1/page-1.html"></iframe>
     </div>
    
     <div class="foreground"> 
@@ -135,25 +135,28 @@
   <!-- Add scrollama script, could also be included via local file -->
   <script src="https://unpkg.com/scrollama"></script>
 
-  <!-- 
     <script>
 
-
-    const colors = ["#b45c46", "#5f9ea0", "#7fa67a", "#b47846"];
-    const background = document.querySelector(".background");
-
     // setup scrollama instance using the steps class above
+    const $iframe = document.querySelector('#frame');
     const scroller = scrollama();
+
+    function handleStepEnter(response) {
+          const folderNumber = response.index + 1;
+    const newSrc = `gfx/page-${folderNumber}/page-${folderNumber}.html`
+
+              if ($iframe.src !== newSrc) {
+    $iframe.src = newSrc;
+  }
+    }
+
     scroller
       .setup({
         step: ".step",
         threshold: 0.5,
       })
-      .onStepEnter((response) => {
-        // change background color on step enter using the array above
-        background.style.backgroundColor = colors[response.index];
-      });
+      .onStepEnter(handleStepEnter);
   </script>
-  -->
+
 </body>
 </html>
