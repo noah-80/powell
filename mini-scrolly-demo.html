@@ -48,8 +48,8 @@
     }
 
     .card {
-      background: rgba(0, 0, 0, 0.75);
-      color: white;
+      background: rgba(255, 255, 255);
+      color: rgb(0, 0, 0);
       padding: 1rem 1.5rem;
       font-size: 1.25rem;
       border-radius: 4px;
@@ -58,6 +58,17 @@
       align-items: center;
       justify-content: center;
     }
+
+    .frame {
+  opacity: 0;
+  transition: opacity 600ms ease;
+      position: absolute;
+    inset: 0;
+}
+
+.frame.active {
+  opacity: 1;
+}
 
     @media (max-width: 768px) {
       .background {
@@ -73,7 +84,8 @@
 <body>
   <div class="scroller">
     <div class="background">
-      <iframe id="frame" src="gfx/page-1/page-1.html"></iframe>
+      <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html"></iframe>
+      <iframe id="frame2" class="frame"></iframe>
     </div>
    
     <div class="foreground"> 
@@ -129,7 +141,6 @@
       <div class="step"><div class="card">Step 3</div></div>
       <div class="step"><div class="card">Step 3</div></div>
       <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
     </div>
   </div>
   <!-- Add scrollama script, could also be included via local file -->
@@ -137,18 +148,41 @@
 
     <script>
 
-    // setup scrollama instance using the steps class above
-    const $iframe = document.querySelector('#frame');
-    const scroller = scrollama();
+      const scroller = scrollama();
 
-    function handleStepEnter(response) {
-          const folderNumber = response.index + 1;
-    const newSrc = `gfx/page-${folderNumber}/page-${folderNumber}.html`
+      const frames = [
+  document.getElementById("frame"),
+  document.getElementById("frame2")
+];
 
-              if ($iframe.src !== newSrc) {
-    $iframe.src = newSrc;
-  }
-    }
+let active = 0;
+let currentPage = 1;
+
+// Initial page
+frames[0].src = "gfx/page-1/page-1.html";
+frames[0].classList.add("active");
+
+function changePage(page) {
+
+  if (page === currentPage) return;
+  currentPage = page;
+
+  const current = frames[active];
+  const next = frames[1 - active];
+
+  next.onload = () => {
+    next.classList.add("active");
+    current.classList.remove("active");
+    active = 1 - active;
+    next.onload = null;
+  };
+
+  next.src = `gfx/page-${page}/page-${page}.html`;
+}
+
+function handleStepEnter(response) {
+  changePage(response.index + 1);
+}
 
     scroller
       .setup({
