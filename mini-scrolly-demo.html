@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mini Scrolly Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -49,14 +55,14 @@
 
     .card {
       background: rgba(255, 255, 255);
-      color: rgb(0, 0, 0);
+      color: #363636;
       padding: 1rem 1.5rem;
       font-size: 1.25rem;
-      border-radius: 4px;
-      width: 250px;
+      width: 450px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      font-family: "Public Sans";
     }
 
     .frame {
@@ -64,6 +70,36 @@
   transition: opacity 600ms ease;
       position: absolute;
     inset: 0;
+}
+
+#articletitle {
+  font-family: "DM Serif Display";
+  font-size: 2.5rem;
+  font-weight:700;
+}
+
+#titlecard {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#credits, #credits a {
+  justify-content: flex-start;
+  font-size: 1rem;
+}
+
+#divider {
+  height:1px;
+  width: 100%;
+  background-color: #dfdfdf;
+  margin-top: 15px;
+  margin-bottom: 19px;
+}
+
+a {
+  color:#363636;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .frame.active {
@@ -95,55 +131,66 @@
       <div class="step"><div class="card">Another inspiration is Basilica del Santo Sepolcro in Bologna, Italy,</div></div>
       <div class="step"><div class="card">which inspired Powell Library’s dome.</div></div>
       <div class="step"><div class="card">Powell Library’s architecture is full of historical references and intentional symbolism.</div></div>
-      <div class="step"><div class="card">A Look Into Powell Library’s Symbolism and Architecture <br> Noah Hrung and Liam McGlynn </div></div>
+      <div class="step"><div class="card" id="titlecard">
+        <div id="articletitle">A Look Into Powell Library’s Symbolism and Architecture</div>
+        <div id = "divider"></div>
+        <div id = "credits">
+          by
+           <a href="https://dailybruin.com/author/noah-hrung">Noah Hrung</a>
+         and 
+         <a href="https://dailybruin.com/author/lmcglynn">Liam McGlynn</a>
+        </div>
+
+       </div></div>
       <div class="step"><div class="card">Powell’s main entrance has its historical counterpart, too.</div></div>
       <div class="step"><div class="card">The main entrance is a pediment, a temple-like entrance.</div></div>
       <div class="step"><div class="card">It is modeled after the entrance of the Basilica of San Zeno in Verona, Italy.</div></div>
       <div class="step"><div class="card">San Zeno’s entrance hosts a central Christ figure.</div></div>
       <div class="step"><div class="card">Powell’s entrance replaces Christ with an owl.</div></div>
-      <div class="step"><div class="card">The owl is associated with Athena, Greek goddess of wisdom.</div></div>
+      <div class="step"><div class="card">TThe owl is associated with Athena, Greek goddess of wisdom.</div></div>
       <div class="step"><div class="card">Above is a sun, with light representing knowledge. This idea of light is thematic of UCLA’s official motto: “Let there be light.”</div></div>
       <div class="step"><div class="card">Two worshippers kneel in respect to the owl.</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 0</div></div>
-      <div class="step"><div class="card">Step 1</div></div>
-      <div class="step"><div class="card">Step 2</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
-      <div class="step"><div class="card">Step 3</div></div>
+      <div class="step"><div class="card">One holds a lamp, also a source of light.</div></div>
+      <div class="step"><div class="card">The other reads off a papyrus scroll.</div></div>
+      <div class="step"><div class="card">All together, these symbols introduce Powell as a site for knowledge.</div></div>
+      <div class="step"><div class="card">Just past the entrance, you’ll find yourself surrounded by Powell’s Moorish and Islamic architectural influences.</div></div>
+      <div class="step"><div class="card">Powell’s lobby uses tile and geometric patterns, particularly the 8-pointed star. This star motif continues throughout Powell.</div></div>
+      <div class="step"><div class="card">Islamic art is known for non-figurative representation, instead of depiction of humans or animals. The lobby only has two animal exceptions:</div></div>
+      <div class="step"><div class="card">the owl — representing knowledge,</div></div>
+      <div class="step"><div class="card">and the Bruin bear — representing UCLA.</div></div>
+      <div class="step"><div class="card">Walk up to the second floor, and you’ll spot more animals adorning Powell.</div></div>
+      <div class="step"><div class="card">In particular, you’ll find twins, pairs of animals.</div></div>
+      <div class="step"><div class="card">Most pairs are identical.</div></div>
+      <div class="step"><div class="card">A notable non-identical pair is the rabbit and squirrel.</div></div>
+      <div class="step"><div class="card">Rabbits would’ve been on campus during Powell’s construction in the 1920s.</div></div>
+      <div class="step"><div class="card">However, only squirrels remain a common sight today.</div></div>
+      <div class="step"><div class="card">You’ll find several animal pairs on the dome ceiling of Powell’s Main Reading Room.</div></div>
+      <div class="step"><div class="card">Let’s look at one panel of the octagonal dome.</div></div>
+      <div class="step"><div class="card">Artist Julian Garnsey painted the ceiling to include several animal pairings, 4 of which symbolize earthly elements.</div></div>
+      <div class="step"><div class="card">You’ll find salamanders — symbolizing fire,</div></div>
+      <div class="step"><div class="card">lions — symbolizing earth,</div></div>
+      <div class="step"><div class="card">birds — symbolizing air,</div></div>
+      <div class="step"><div class="card">and seahorses — symbolizing water.
+</div></div>
+      <div class="step"><div class="card">Winged animal pairs line the edge of the domed ceiling. One explanation for their inclusion comes from the idea of “winged words” in ancient times. This idea describes how words “fly” from one place to another.</div></div>
+      <div class="step"><div class="card">The ceiling also pays tribute to the written word</div></div>
+            <div class="step"><div class="card">by featuring 40 different printers’ marks from medieval Europe.</div></div>
+      <div class="step"><div class="card">One example is the printer’s mark of Johann Froben.</div></div>
+      <div class="step"><div class="card">Printers’ marks were symbolic of printers and their press businesses, similar to a modern-day logo.</div></div>
+      <div class="step"><div class="card">These marks signified a book’s quality and protected its intellectual property.</div></div>
+      <div class="step"><div class="card">You’ll find even more references to wisdom and history in the triangular spandrels right below the dome.</div></div>
+      <div class="step"><div class="card">Five interlacing circles, symbolizing perfect truth.</div></div>
+      <div class="step"><div class="card">A lamp of light, just like on Powell’s entrance.</div></div>
+      <div class="step"><div class="card">The Tree of Life, where all knowledge is. This symbolism explains the use of floral representations throughout Powell.</div></div>
+      <div class="step"><div class="card">The pineapple, a special gift during the Renaissance.</div></div>
+      <div class="step"><div class="card">Pineapples were once a status symbol, highly valued as an exotic fruit in Europe.</div></div>
+      <div class="step"><div class="card">The underlying geometry of the ceiling is also a historical reference.</div></div>
+      <div class="step"><div class="card">The Main Reading Room’s ceiling is Mudéjar-style, in line with Spanish influence on Southern California.</div></div>
+      <div class="step"><div class="card">The center of the ceiling combines three of Powell’s motifs together.</div></div>
+      <div class="step"><div class="card">There’s an innermost flower,</div></div>
+      <div class="step"><div class="card">followed by an 8-pointed star,</div></div>
+      <div class="step"><div class="card">surrounded by radiating beams of light.</div></div>
+      <div class="step"><div class="card">Collectively, these architectural references to history and culture define Powell as a monument to human society and knowledge.</div></div>
     </div>
   </div>
   <!-- Add scrollama script, could also be included via local file -->
