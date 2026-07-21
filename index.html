@@ -166,6 +166,16 @@ a {
   text-align: center;
 }
 
+#credittext {
+  z-index: 1000;
+  font-family: "Public Sans";
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  position:absolute;
+  bottom: 5px;
+  left: 5px;
+}
+
 .frame.active {
   opacity: 1;
 }
@@ -189,6 +199,7 @@ a {
     <div class="background">
       <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html"></iframe>
       <iframe id="frame2" class="frame"></iframe>
+      <div id="credittext">Test</div>
     </div>
    
     <div class="foreground"> 
