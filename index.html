@@ -37,6 +37,12 @@
       background-color: #252525;
       transition: background-color 600ms ease;
       z-index: -1; /* -1 needed for safari sticky issue*/
+          &::-webkit-scrollbar {
+        display: none; /* */
+        }
+      scrollbar-width: none; /* */
+      -ms-overflow-style: none;
+      overflow: auto;
     }
 
     .foreground {
