@@ -327,9 +327,14 @@ function handleStepEnter (response) {
   
   const label = document.getElementById('credittext');
 
-    if (response.index == 3) { 
+    if (response.index == 4 || 9) { 
     label.textContent = 'Photo by Liam McGlynn/Daily Bruin senior staff';
-  } else {
+  } else if (response.index == 5) {
+    label.textContent = 'Photo by Zimo Li/Daily Bruin senior staff';
+  } else if (response.index == 6 || 7) {
+    label.textContent = '(Daily Bruin file photo)';
+  }
+  else {
     label.textContent = ' ';
   }
 }
