@@ -169,8 +169,8 @@ a {
 #credittext {
   z-index: 1000;
   font-family: "Public Sans";
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
   position:absolute;
   bottom: 5px;
   left: 5px;
@@ -321,8 +321,17 @@ function changePage(page) {
   next.src = `gfx/page-${page}/page-${page}.html`;
 }
 
-function handleStepEnter(response) {
+function handleStepEnter (response) {
   changePage(response.index + 1);
+  console.log(response.index);
+  
+  const label = document.getElementById('credittext');
+
+    if (response.index == 3) { 
+    label.textContent = 'Photo by Liam McGlynn/Daily Bruin senior staff';
+  } else {
+    label.textContent = ' ';
+  }
 }
 
     scroller
@@ -333,5 +342,7 @@ function handleStepEnter(response) {
       .onStepEnter(handleStepEnter);
   </script>
 
+
+
 </body>
-</html>
+</html
