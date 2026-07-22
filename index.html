@@ -28,6 +28,7 @@
       height: 100%;
       align-content: center;
       border-width: 0px;
+      overflow-y: hidden;
     }
 
     .background {
@@ -43,8 +44,7 @@
         }
       scrollbar-width: none; /* */
       -ms-overflow-style: none;
-      overflow: auto;
-      pointer-events: auto;
+      overflow-y: hidden;
     }
 
     .foreground {
@@ -86,10 +86,7 @@
       position: absolute;
     inset: 0;
     pointer-events: none;
-}
-
-.frame.active {
-  pointer-events: auto;
+    overflow-y: hidden;
 }
 
 .footer {
@@ -136,7 +133,6 @@ a {
 
 #credittext a {
   color: rgba(255, 255, 255, 0.5);
-  pointer-events: auto; 
 }
 
 #sc-aXZVg kGjIht {
@@ -202,6 +198,7 @@ a {
 
 .frame.active {
   opacity: 1;
+  overflow-y: hidden;
 }
 
     @media (max-width: 768px) {
@@ -221,8 +218,8 @@ a {
 
   <div class="scroller">
     <div class="background">
-      <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html"></iframe>
-      <iframe id="frame2" class="frame"></iframe>
+      <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html" scrolling="no"></iframe>
+      <iframe id="frame2" class="frame" scrolling="no"></iframe>
       <div class="credit-overlay">
               <div id="credittext"></div>
       </div>
@@ -363,7 +360,7 @@ function handleStepEnter (response) {
     label.innerHTML = '<a href="https://commons.wikimedia.org/wiki/File:Claustro_alto_del_Monasterio_de_San_Juan_de_los_Reyes_(Toledo)._Taujel.jpg" target="_blank">Photo by José Luis Filpo Cabana</a>, <a href="http://creativecommons.org/licenses/by/4.0" target="_blank"> CC BY 4.0</a> / Cropped from original';
   }
   else if ([0,1,2,3,8,9,28,29,30,31,32,33,34,35,36,37,38,39,40,46,47].includes(response.index)){
-    label.interHTML = '';
+    label.textContent = '';
   }
 }
 
