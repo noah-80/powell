@@ -235,7 +235,7 @@ a {
    
     <div class="foreground"> 
        <!-- Foreground content, usually text or other elements -->
-      <div class="step"><div class="card">There&#39;s a basilica that looks just like Powell Library and Royce Hall in Milan, Italy.</div></div>
+      <div class="step"><div class="card">TEST.There&#39;s a basilica that looks just like Powell Library and Royce Hall in Milan, Italy.</div></div>
       <div class="step"><div class="card">Meet the Basilica of Sant'Ambrogio, one of the inspirations for the architecture of Powell Library, UCLA&#39;s main undergraduate library.</div></div>
       <div class="step"><div class="card">Another inspiration is the Basilica del Santo Sepolcro in Bologna, Italy,</div></div>
       <div class="step"><div class="card">which inspired Powell Library&#39;s dome.</div></div>
@@ -318,8 +318,8 @@ a {
   <!-- Add scrollama script, could also be included via local file -->
 <script src="https://unpkg.com/scrollama"></script>
 <script>
-  const TOTAL_PAGES = 53; // set to your actual last page number
-  const warmed = new Set();
+  const TOTAL_PAGES = 53; // change this to your actual last page number
+  const warmed = new Set(); // keeps track of what we've already started loading
 
   const frames = [
     document.getElementById("frame"),
@@ -329,20 +329,30 @@ a {
   let active = 0;
   let currentPage = 1;
 
-  // Warm the HTTP cache for a page by loading it in a hidden iframe.
-  // Real request, real URL, real relative-path resolution — just invisible.
-function warmCache(page) {
-  if (page < 1 || page > TOTAL_PAGES || warmed.has(page)) return;
-  warmed.add(page);
-  const temp = document.createElement('iframe');
-  temp.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; opacity:0; pointer-events:none; z-index:-1;';
-  temp.src = `gfx/page-${page}/page-${page}.html`;
-  document.body.appendChild(temp);
-  temp.onload = () => {
-    setTimeout(() => temp.remove(), 500); // give the intersection observer a moment to fire before cleanup
-  };
-}
+  // Figures out which image size to use based on screen width,
+  // matching the three sizes your pages already generate (480/768/1200)
+  function getImageSize() {
+    const w = window.innerWidth;
+    if (w >= 1200) return 1200;
+    if (w >= 768) return 768;
+    return 480;
+  }
 
+  // Tells the browser "start downloading this image now, before you need it"
+  function warmCache(page) {
+    if (page < 1 || page > TOTAL_PAGES) return; // ignore invalid page numbers
+    if (warmed.has(page)) return; // already started, don't repeat
+    warmed.add(page);
+
+    const size = getImageSize();
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = `../gfx/page-${page}/figma2html/${size}px.png`;
+    document.head.appendChild(link);
+  }
+
+  // Swaps which iframe is visible, loading the new page's HTML
   function changePage(page) {
     if (page === currentPage) return;
     currentPage = page;
@@ -360,10 +370,11 @@ function warmCache(page) {
     next.src = `gfx/page-${page}/page-${page}.html`;
   }
 
+  // Runs every time the user scrolls into a new step
   function handleStepEnter(response) {
     const page = response.index + 1;
     changePage(page);
-    warmCache(page + 1); // pre-fetch what's coming next
+    warmCache(page + 1); // start loading the next image ahead of time
 
     const label = document.getElementById('credittext');
     if ([4, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 41, 42, 43, 44, 45].includes(response.index)) {
@@ -379,12 +390,13 @@ function warmCache(page) {
     }
   }
 
-  // initial page
+  // Load the first page right away
   frames[0].src = "gfx/page-1/page-1.html";
   frames[0].classList.add("active");
 
+  // Get a head start on page 2 as soon as the site loads
   window.addEventListener('load', () => {
-    warmCache(2); // get a head start on the next one right away
+    warmCache(2);
   });
 
   const scroller = scrollama();
