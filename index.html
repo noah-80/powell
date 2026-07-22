@@ -320,6 +320,22 @@ a {
 
     <script>
 
+      function preload(page) {
+  if (preloadCache[page]) return; // already fetched
+  const temp = document.createElement('iframe');
+  temp.style.display = 'none';
+  temp.src = `gfx/page-${page}/page-${page}.html`;
+  document.body.appendChild(temp);
+  preloadCache[page] = temp;
+}
+
+function handleStepEnter(response) {
+  const page = response.index + 1;
+  changePage(page);
+  preload(page + 1); // start fetching the *next* one now
+  // ...rest of your credit-label logic
+}
+
       const scroller = scrollama();
 
       const frames = [
