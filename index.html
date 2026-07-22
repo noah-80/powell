@@ -16,6 +16,7 @@
 
     .scroller {
       position: relative;
+      z-index: 0;
     }
 
     body {
@@ -43,12 +44,14 @@
       scrollbar-width: none; /* */
       -ms-overflow-style: none;
       overflow: auto;
+      pointer-events: auto;
     }
 
     .foreground {
       position: relative;
       z-index: 1;
       margin-top: -100vh;
+      pointer-events: none;
     }
 
     .step {
@@ -58,6 +61,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      pointer-events: none;
     }
 
     html {
@@ -81,6 +85,11 @@
   transition: opacity 600ms ease;
       position: absolute;
     inset: 0;
+    pointer-events: none;
+}
+
+.frame.active {
+  pointer-events: auto;
 }
 
 .footer {
@@ -125,8 +134,13 @@ a {
   text-underline-offset: 3px;
 }
 
+#credittext a {
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: auto; 
+}
+
 #sc-aXZVg kGjIht {
-    z-index: 9999;
+    z-index: 1000;
     position: sticky;
     top: 0px;
     background: black;
@@ -166,15 +180,25 @@ a {
   text-align: center;
 }
 
+.credit-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;          
+}
+
 #credittext {
-  z-index: 1000;
+  z-index: 20;
   font-family: "Public Sans";
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.5);
   position:absolute;
   bottom: 5px;
-  left: 5px;
+  right: 5px;
+  pointer-events: auto;
+  user-select: text;
 }
+
 
 .frame.active {
   opacity: 1;
@@ -199,7 +223,9 @@ a {
     <div class="background">
       <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html"></iframe>
       <iframe id="frame2" class="frame"></iframe>
-      <div id="credittext">Test</div>
+      <div class="credit-overlay">
+              <div id="credittext"></div>
+      </div>
     </div>
    
     <div class="foreground"> 
@@ -327,15 +353,17 @@ function handleStepEnter (response) {
   
   const label = document.getElementById('credittext');
 
-    if (response.index == 4 || 9) { 
+    if ([4, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 41, 42, 43, 44, 45].includes(response.index)) { 
     label.textContent = 'Photo by Liam McGlynn/Daily Bruin senior staff';
-  } else if (response.index == 5) {
+  } else if ([5, 49, 50, 51, 52, 53].includes(response.index)) {
     label.textContent = 'Photo by Zimo Li/Daily Bruin senior staff';
-  } else if (response.index == 6 || 7) {
+  } else if ([6, 7].includes(response.index)) {
     label.textContent = '(Daily Bruin file photo)';
+  }else if ([48].includes(response.index)) {
+    label.innerHTML = '<a href="https://commons.wikimedia.org/wiki/File:Claustro_alto_del_Monasterio_de_San_Juan_de_los_Reyes_(Toledo)._Taujel.jpg" target="_blank">Photo by José Luis Filpo Cabana</a>, <a href="http://creativecommons.org/licenses/by/4.0" target="_blank"> CC BY 4.0</a> / Cropped from original';
   }
-  else {
-    label.textContent = ' ';
+  else if ([0,1,2,3,8,9,28,29,30,31,32,33,34,35,36,37,38,39,40,46,47].includes(response.index)){
+    label.interHTML = '';
   }
 }
 
