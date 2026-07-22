@@ -45,6 +45,7 @@
       scrollbar-width: none; /* */
       -ms-overflow-style: none;
       overflow-y: hidden;
+      pointer-events: auto;
     }
 
     .foreground {
@@ -88,6 +89,11 @@
     pointer-events: none;
     overflow-y: hidden;
 }
+
+.frame.active {
+  pointer-events: auto;
+}
+
 
 .footer {
   display:flex;
@@ -133,6 +139,7 @@ a {
 
 #credittext a {
   color: rgba(255, 255, 255, 0.5);
+  pointer-events: auto;
 }
 
 #sc-aXZVg kGjIht {
