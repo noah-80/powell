@@ -226,8 +226,6 @@ a {
 
   <div class="scroller">
     <div class="background">
-      <iframe id="frame" class="frame active" src="gfx/page-1/page-1.html" scrolling="no"></iframe>
-      <iframe id="frame2" class="frame" scrolling="no"></iframe>
       <div class="credit-overlay">
               <div id="credittext"></div>
       </div>
@@ -322,39 +320,94 @@ a {
 
       const scroller = scrollama();
 
-      const frames = [
-  document.getElementById("frame"),
-  document.getElementById("frame2")
-];
+      // ---- Iframe pool: preloads neighboring pages ahead of time so the
+      // crossfade is instant whether you're scrolling forward for the first
+      // time or revisiting a page you've already seen. ----
 
-let active = 0;
-let currentPage = 1;
+      const background = document.querySelector('.background');
+      const creditOverlay = document.querySelector('.credit-overlay');
+      const TOTAL_PAGES = document.querySelectorAll('.step').length; // one page per step
+      const PRELOAD_RADIUS = 2;   // warm this many pages ahead/behind the active one
+      const MAX_POOL_SIZE = 8;    // cap how many iframes stay live at once
 
-// Initial page
-frames[0].src = "gfx/page-1/page-1.html";
-frames[0].classList.add("active");
+      const pool = new Map();     // page number -> iframe element
+      let lruOrder = [];          // page numbers, least- to most-recently used
+      let activePage = null;
 
-function changePage(page) {
+      function touchLRU(page) {
+        lruOrder = lruOrder.filter(p => p !== page);
+        lruOrder.push(page);
+      }
 
-  if (page === currentPage) return;
-  currentPage = page;
+      function evictIfNeeded() {
+        while (pool.size > MAX_POOL_SIZE) {
+          const candidate = lruOrder.find(p => p !== activePage);
+          if (candidate === undefined) break;
+          pool.get(candidate).remove();
+          pool.delete(candidate);
+          lruOrder = lruOrder.filter(p => p !== candidate);
+        }
+      }
 
-  const current = frames[active];
-  const next = frames[1 - active];
+      function getOrCreateFrame(page) {
+        let el = pool.get(page);
+        if (!el) {
+          el = document.createElement('iframe');
+          el.className = 'frame';
+          el.scrolling = 'no';
+          el.src = `gfx/page-${page}/page-${page}.html`;
+          el.addEventListener('load', () => { el.dataset.loaded = 'true'; }, { once: true });
+          background.insertBefore(el, creditOverlay);
+          pool.set(page, el);
+        }
+        touchLRU(page);
+        evictIfNeeded();
+        return el;
+      }
 
-  next.onload = () => {
-    next.classList.add("active");
-    current.classList.remove("active");
-    active = 1 - active;
-    next.onload = null;
-  };
+      // Preload without activating - warms the cache during idle time so it
+      // doesn't compete with the frame that's actually being shown.
+      function preload(page) {
+        if (page < 1 || page > TOTAL_PAGES) return;
+        if (pool.has(page)) { touchLRU(page); return; }
+        const schedule = window.requestIdleCallback || (fn => setTimeout(fn, 200));
+        schedule(() => getOrCreateFrame(page));
+      }
 
-  next.src = `gfx/page-${page}/page-${page}.html`;
-}
+      function showPage(page) {
+        if (page === activePage || page < 1 || page > TOTAL_PAGES) return;
 
-function handleStepEnter (response) {
-  changePage(response.index + 1);
-  console.log(response.index);
+        const el = getOrCreateFrame(page);
+        const prevPage = activePage;
+
+        const swap = () => {
+          if (prevPage !== null) {
+            const prevEl = pool.get(prevPage);
+            if (prevEl) prevEl.classList.remove('active');
+          }
+          el.classList.add('active');
+          activePage = page;
+        };
+
+        if (el.dataset.loaded === 'true') {
+          swap();
+        } else {
+          el.addEventListener('load', swap, { once: true });
+        }
+
+        // Warm the pages around this one for the next scroll in either direction.
+        for (let i = 1; i <= PRELOAD_RADIUS; i++) {
+          preload(page + i);
+          preload(page - i);
+        }
+      }
+
+      // Warm the first few pages immediately so the very first scroll is fast too.
+      showPage(1);
+      for (let i = 2; i <= PRELOAD_RADIUS + 1; i++) preload(i);
+
+      function handleStepEnter (response) {
+        showPage(response.index + 1);
   
   const label = document.getElementById('credittext');
 
@@ -383,4 +436,4 @@ function handleStepEnter (response) {
 
 
 </body>
-</html
+</html>
